@@ -18,16 +18,27 @@ namespace ConsoleApp4
             
         }
 
-        static void Download()
-        {
-            Task.Run(() =>
-            {
+        
 
-                Thread.Sleep(3000);
-                Console.WriteLine(" Download Complete");
-            });
+            static async void Download()
+
+            {
+                await Network.Download();
+
+            }
+        class Network
+        {
+            static public Task Download()
+            {
+                return Task.Run(() => Thread.Sleep(3000));
+            }
         }
+
+
 
     }
 
+
+
 }
+
