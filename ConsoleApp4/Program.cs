@@ -6,15 +6,47 @@ using System.Linq;
 
 using System.Text;
 
-using System.Threading;
-
 using System.Threading.Tasks;
 
 
 
-namespace LearningAsyncAwayStart
+namespace LearningProperties
 
 {
+
+    class Player
+
+    {
+
+        public bool isAlive = true;
+
+        int health = 100;
+
+
+
+        public void Hit()
+
+        {
+
+            Random r = new Random();
+
+            health -= r.Next(5, 50);
+
+        }
+
+
+
+        public void CheckDeath()
+
+        {
+
+            if (health <= 0)
+
+                isAlive = false;
+
+        }
+
+    }
 
     class Program
 
@@ -24,53 +56,22 @@ namespace LearningAsyncAwayStart
 
         {
 
-            Console.WriteLine("downloading file");
+            Player player = new Player();
 
-            Download();
+            for (int i = 0; i < 20; i++)
 
-            Console.ReadLine();
+            {
 
+                player.Hit();
 
+                player.CheckDeath();
 
-        }
+                Console.WriteLine("Is player alive: " + player.isAlive);
 
-
-
-        static void Download()
-
-        {
-
-            Network.Download((message) => Console.WriteLine("Download complete " + message));
-
-        }
-
-    }
-
-
-
-    // Imaginary external network library
-
-
-
-    class Network
-
-    {
-
-        static public void Download(Action<String> callback)
-
-        {
-
-            Task.Run(() => {
-
-                Thread.Sleep(3000);
-
-                callback("completed");
-
-            });
+            }
 
         }
 
     }
 
 }
-
